@@ -49,7 +49,7 @@ export default {
   display: grid;
   grid-template:
     "thumbnail titles controls" auto
-    /     auto  240px     auto;
+    /     auto    1fr     auto;
   gap: 6px;
   padding: 6px 12px;
   background-color: #222;

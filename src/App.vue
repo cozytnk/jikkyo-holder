@@ -1,6 +1,6 @@
 <template>
 <div class="app">
-  <span class="title">jikkyo-holder</span>
+  <!-- <span class="title">jikkyo-holder</span> -->
   <div class="items">
     <item class="item"
       v-for="item in items" :key="item.seriesUrl"
@@ -27,7 +27,7 @@ export default {
   },
   methods: {
     checkStorage () {
-      chrome.storage.local.getBytesInUse(null, bytesInUse => alert(bytesInUse))
+      chrome.storage.local.getBytesInUse(null, bytesInUse => alert(`${bytesInUse} bytes in use.`))
       chrome.storage.local.get(null, result => alert(JSON.stringify(result, null, 2)))
     },
   },
@@ -39,14 +39,16 @@ export default {
 .app {
   display: grid;
   grid-template:
-    "title " auto
+    /* "title " auto */
     "items " auto
     "footer" auto
-    /  auto;
+    /  100%;
 }
 .title {
   padding: 6px 12px;
+  text-align: center;
   font-size: 14px;
+  /* font-weight: bold; */
 }
 .items {
   padding: 6px 0;

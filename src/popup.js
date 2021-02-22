@@ -78,9 +78,6 @@ const app = new Vue({
       props: { items: this.items, currentContentInfo: this.currentContentInfo },
       on: {
         update: async (item) => {
-          console.log('TODO:')
-          console.log(item)
-          console.log(this)
           item.url = this.currentContentInfo.url
           item.title = this.currentContentInfo.title
           await setItems(this.items)
@@ -93,9 +90,11 @@ const app = new Vue({
           await reset()
         },
         clear: async () => {
-          chrome.storage.local.clear() // TODO: await
-          alert('cleared all items.')
-          await reset()
+          if (confirm(`clear all items`)) {
+            chrome.storage.local.clear() // TODO: await
+            alert('cleared all items.')
+            await reset()
+          }
         },
       },
     })
@@ -114,8 +113,11 @@ const reset = async () => {
       seriesTitle: currentContentInfo.seriesTitle,
       thumbnail: currentContentInfo.thumbnail,
     }
-    items.splice(1, 0, newItem)
+    items.splice(0, 0, newItem)
   } else {
+    // 現在ページは最上段に表示
+    const [ currentItem ] = items.splice(i, 1)
+    items.splice(0, 0, currentItem)
   }
 
   Vue.set(app, 'items', items)
