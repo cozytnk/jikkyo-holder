@@ -29,12 +29,6 @@ export default {
     return {
     }
   },
-  computed: {
-    attrs () {
-      return {
-      }
-    },
-  },
   methods: {
     open (href) {
       open(href)

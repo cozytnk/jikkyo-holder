@@ -32,21 +32,19 @@ const getContentInfo = () => {
       // code: `[ location.href, location.host ]` ok
       code: `[
         location.href,
+        document.querySelector('.VideoTitle')?.innerText,
         document.querySelector('.Link.SeriesBreadcrumbs-title')?.href,
         document.querySelector('.Link.SeriesBreadcrumbs-title')?.innerText,
-        document.querySelector('.VideoTitle')?.innerText,
-        document.querySelector('.Thumbnail.VideoDescriptionSeriesContainer-seriesThumbnail').style.backgroundImage,
+        document.querySelector('.Thumbnail.VideoDescriptionSeriesContainer-seriesThumbnail')?.style?.backgroundImage?.match(/url\("(.+)"\)/)?.[1],
       ]`
     }, result => {
-      let [
+      const [
         url,
+        title,
         seriesUrl,
         seriesTitle,
-        title,
         thumbnail,
       ] = result?.[0] || []
-      console.debug(thumbnail)
-      thumbnail = thumbnail?.match(/url\("(?<url>.+)"\)/)?.groups.url
       resolve({ url, seriesUrl, seriesTitle, title, thumbnail })
     })
   })
