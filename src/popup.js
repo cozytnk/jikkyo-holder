@@ -1,6 +1,5 @@
 
 import Vue from 'vue'
-// import { createApp } from 'vue'
 import App from './App.vue'
 import Item from './Item.vue'
 
@@ -35,7 +34,8 @@ const getContentInfo = () => {
         document.querySelector('.VideoTitle')?.innerText,
         document.querySelector('.Link.SeriesBreadcrumbs-title')?.href,
         document.querySelector('.Link.SeriesBreadcrumbs-title')?.innerText,
-        document.querySelector('.Thumbnail.VideoDescriptionSeriesContainer-seriesThumbnail')?.style?.backgroundImage?.match(/url\("(.+)"\)/)?.[1],
+        // document.querySelector('.Thumbnail.VideoDescriptionSeriesContainer-seriesThumbnail')?.style?.backgroundImage?.match(/url\("(.+)"\)/)?.[1],
+        document.querySelector('.Thumbnail.VideoDescriptionSeriesContainer-seriesThumbnail')?.style?.backgroundImage,
       ]`
     }, result => {
       const [
@@ -43,8 +43,11 @@ const getContentInfo = () => {
         title,
         seriesUrl,
         seriesTitle,
-        thumbnail,
+        // thumbnail,
+        thumbnailUrlString,
       ] = result?.[0] || []
+      console.debug(result)
+      const thumbnail = thumbnailUrlString?.match(/url\("(.+)"\)/)?.[1]
       resolve({ url, seriesUrl, seriesTitle, title, thumbnail })
     })
   })
@@ -113,8 +116,9 @@ const reset = async () => {
     }
     items.splice(0, 0, newItem)
   } else {
-    // 現在ページは最上段に表示
+    // 現在ページの内容を更新・最上段に表示
     const [ currentItem ] = items.splice(i, 1)
+    currentItem.thumbnail = currentContentInfo.thumbnail || currentItem.thumbnail
     items.splice(0, 0, currentItem)
   }
 
@@ -125,7 +129,7 @@ const reset = async () => {
 
 window.onload = async () => {
 
-  reset()
+  await reset()
 
   window.app = app // for debug
 }

@@ -8,6 +8,8 @@
     "16": "assets/favicon.png"
   },
 
+  "web_accessible_resources": [ "assets/*" ],
+
   "permissions": [
     "tabs",
     "storage",

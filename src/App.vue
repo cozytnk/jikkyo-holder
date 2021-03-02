@@ -13,6 +13,7 @@
   <div class="footer">
     <button @click="$emit('clear')">clear all</button>
     <button @click="checkStorage">check storage</button>
+    <button @click="copyStrage">copy storage</button>
   </div>
 </div>
 </template>
@@ -29,6 +30,11 @@ export default {
     checkStorage () {
       chrome.storage.local.getBytesInUse(null, bytesInUse => alert(`${bytesInUse} bytes in use.`))
       chrome.storage.local.get(null, result => alert(JSON.stringify(result, null, 2)))
+    },
+    copyStrage () {
+      chrome.storage.local.get(null, result => {
+        navigator.clipboard.writeText(JSON.stringify(result, null, 2))
+      })
     },
   },
 }
