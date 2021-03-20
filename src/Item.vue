@@ -6,9 +6,13 @@
     :title="`open ${item.seriesUrl}`"
   >
   <div class="titles">
-    <span class="title clickable" :title="`open ${item.url}`" @click="open(item.url)">{{ item.title || 'no title' }}</span>
+    <span class="title clickable" :title="`open ${item.url}`" @click="open(item.url)">
+      {{ item.title || 'no title' }}
+    </span>
     <i class="arrow-down material-icons" v-if="currentContentInfo">keyboard_arrow_down</i>
-    <span class="title" v-if="currentContentInfo">{{ currentContentInfo.title || 'no title' }}</span>
+    <span class="title" v-if="currentContentInfo">
+      {{ currentContentInfo.title || 'no title' }}
+    </span>
   </div>
   <div class="controls">
     <button title="update" @click="$emit('update', item)" :disabled="!currentContentInfo">
@@ -31,7 +35,7 @@ export default {
   },
   methods: {
     open (href) {
-      open(href)
+      window.open(href, '_bank')
     },
   },
 }
